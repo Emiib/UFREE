@@ -1,26 +1,24 @@
 
 from django import forms
-
+from django.contrib.auth.forms import User
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 
+class TypeForm(forms.Form):
+    tipo = forms.CharField(max_length=100)
+    id = forms.IntegerField()
 
-class CursoFormulario(forms.Form):
-
-    #Especificar los campos
-    curso = forms.CharField()
-    camada = forms.IntegerField()
-
-
-class ProfesorFormulario(forms.Form):   
+class ClienteForm(forms.Form):   
     nombre= forms.CharField(max_length=30)
     apellido= forms.CharField(max_length=30)
-    email= forms.EmailField()
-    profesion= forms.CharField(max_length=30)
+    email = forms.EmailField()
+    dni = forms.IntegerField()
 
+class DateProjectForm(forms.Form):
+    first_deliver = forms.DateTimeField()
+    second_deliver = forms.DateTimeField()
+    deliver = forms.BooleanField()
 
-
-class UserRegisterForm(UserCreationForm):
+class User(UserCreationForm):
 
     username = forms.CharField()
     email = forms.EmailField()

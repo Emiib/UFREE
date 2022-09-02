@@ -1,10 +1,7 @@
 from django.urls import path
-
 #cosas para el login
 from django.contrib.auth.views import LogoutView
-
-
-from AppCoder import views
+from App_ufree import views
 
 
 
@@ -12,10 +9,9 @@ from AppCoder import views
 urlpatterns = [
    
     path('', views.inicio, name="Inicio"), #esta era nuestra primer view
-    path('cursos', views.cursos, name="Cursos"),
-    path('profesores', views.profesores, name="Profesores"),
-    path('estudiantes', views.estudiantes, name="Estudiantes"),
-    path('entregables', views.entregables, name="Entregables"),
+    path('Type', views.Type, name="TipoProyecto"),
+    path('Client', views.Client, name="Clientes"),
+    path('DateProject', views.DateProject, name="DateProject"),
     #path('cursoFormulario', views.cursoFormulario, name="CursoFormulario"),
     #path('profesorFormulario', views.profesorFormulario, name="ProfesorFormulario"),
     #path('busquedaCamada',  views.busquedaCamada, name="BusquedaCamada"),
@@ -25,7 +21,7 @@ urlpatterns = [
     path('editarProfesor/<profesor_nombre>/', views.editarProfesor, name="EditarProfesor"),
 
 
-    path('curso/list', views.CursoList.as_view(), name='List'),
+    path('Type/list', views.CursoList.as_view(), name='List'),
     path(r'^(?P<pk>\d+)$', views.CursoDetalle.as_view(), name='Detail'),
     path(r'^nuevo$', views.CursoCreacion.as_view(), name='New'),
     path(r'^editar/(?P<pk>\d+)$', views.CursoUpdate.as_view(), name='Edit'),

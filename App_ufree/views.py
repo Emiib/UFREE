@@ -2,18 +2,16 @@ from django.shortcuts import redirect, render, HttpResponse
 from typing import List
 from django.http import HttpResponse
 from App_ufree.models import Curso, Profesor, Avatar
-from App_ufree.forms import CursoFormulario, ProfesorFormulario, UserRegisterForm,UserEditForm,AvatarFormulario
+from App_ufree.forms import CursoFormulario, ProfesorFormulario, TypeForm, UserRegisterForm,UserEditForm,AvatarFormulario
 
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
 
-
 #Para la prueba unitaria
 import string
 import random
-
 
 #Para el login
 
@@ -25,65 +23,57 @@ from django.contrib.auth.decorators import login_required
 
 from django.views.generic.base import TemplateView
 
-
-
-
-
-
-
-# Create your views here.
-
-def curso(request):
-
-      curso =  Curso(nombre="Desarrollo web", camada="19881")
-      curso.save()
-      documentoDeTexto = f"--->Curso: {curso.nombre}   Camada: {curso.camada}"
-
-
-      return HttpResponse(documentoDeTexto)
-
 @login_required
+
 def inicio(request):
 
       avatares = Avatar.objects.filter(user=request.user.id)
       
-      return render(request, "AppCoder/inicio.html", {"url":avatares[0].imagen.url})
+      return render(request, "App_ufree/inicio.html", {"url":avatares[0].imagen.url})
 
 
 
-def estudiantes(request):
+def Type(request):
 
-      return render(request, "AppCoder/estudiantes.html")
+      tipo =  tipo(nombre="App Inmobiliaria", id = "3000")
+      tipo.save()
+      Datatxt = f"Type: {tipo.nombre} ID: {tipo.id}"
+
+      return HttpResponse(Datatxt)
 
 
-def entregables(request):
+def Client(request):
 
-      return render(request, "AppCoder/entregables.html")
+      return render(request, "App_ufree/Client.html")
 
 
-def cursos(request):
+def DateProject(request):
+
+      return render(request, "App_ufree/dateproject.html")
+
+
+def Type(request):
 
       if request.method == 'POST':
 
-            miFormulario = CursoFormulario(request.POST) #aquí mellega toda la información del html
+            FormType = TypeForm(request.POST) #aquí mellega toda la información del html
 
-            print(miFormulario)
+            print(FormType)
 
-            if miFormulario.is_valid:   #Si pasó la validación de Django
+            if FormType.is_valid:   #Si pasó la validación de Django
 
-                  informacion = miFormulario.cleaned_data
+                  info = FormType.cleaned_data
 
-                  curso = Curso (nombre=informacion['curso'], camada=informacion['camada']) 
+                  tipo = tipo (nombre=info['Tipo'], id = info['ID']) 
 
-                  curso.save()
+                  tipo.save()
 
-                  return render(request, "AppCoder/inicio.html") #Vuelvo al inicio o a donde quieran
+                  return render(request, "App_ufree/inicio.html") #Vuelvo al inicio o a donde quieran
 
-      else: 
+      else:
+            FormType = TypeForm() #Formulario vacio para construir el html
 
-            miFormulario= CursoFormulario() #Formulario vacio para construir el html
-
-      return render(request, "AppCoder/cursos.html", {"miFormulario":miFormulario})
+      return render(request, "App_ufree/type.html", {"FormType":FormType})
 
 
 
@@ -92,13 +82,13 @@ def profesores(request):
 
       if request.method == 'POST':
 
-            miFormulario = ProfesorFormulario(request.POST) #aquí mellega toda la información del html
+            FormType = ProfesorFormulario(request.POST) #aquí mellega toda la información del html
 
-            print(miFormulario)
+            print(FormType)
 
-            if miFormulario.is_valid:   #Si pasó la validación de Django
+            if FormType.is_valid:   #Si pasó la validación de Django
 
-                  informacion = miFormulario.cleaned_data
+                  informacion = FormType.cleaned_data
                   """
                   #CASO DE PRUEBA
                   KEY_LEN = 20
@@ -116,9 +106,9 @@ def profesores(request):
 
       else: 
 
-            miFormulario= ProfesorFormulario() #Formulario vacio para construir el html
+            FormType= ProfesorFormulario() #Formulario vacio para construir el html
 
-      return render(request, "AppCoder/profesores.html", {"miFormulario":miFormulario})
+      return render(request, "AppCoder/profesores.html", {"FormType":FormType})
 
 
 
@@ -177,13 +167,13 @@ def editarProfesor(request, profesor_nombre):
       #Si es metodo POST hago lo mismo que el agregar
       if request.method == 'POST':
 
-            miFormulario = ProfesorFormulario(request.POST) #aquí mellega toda la información del html
+            FormType = ProfesorFormulario(request.POST) #aquí mellega toda la información del html
 
-            print(miFormulario)
+            print(FormType)
 
-            if miFormulario.is_valid:   #Si pasó la validación de Django
+            if FormType.is_valid:   #Si pasó la validación de Django
 
-                  informacion = miFormulario.cleaned_data
+                  informacion = FormType.cleaned_data
 
                   profesor.nombre = informacion['nombre']
                   profesor.apellido = informacion['apellido']
@@ -196,11 +186,11 @@ def editarProfesor(request, profesor_nombre):
       #En caso que no sea post
       else: 
             #Creo el formulario con los datos que voy a modificar
-            miFormulario= ProfesorFormulario(initial={'nombre': profesor.nombre, 'apellido':profesor.apellido , 
+            FormType= ProfesorFormulario(initial={'nombre': profesor.nombre, 'apellido':profesor.apellido , 
             'email':profesor.email, 'profesion':profesor.profesion}) 
 
       #Voy al html que me permite editar
-      return render(request, "AppCoder/editarProfesor.html", {"miFormulario":miFormulario, "profesor_nombre":profesor_nombre})
+      return render(request, "AppCoder/editarProfesor.html", {"FormType":FormType, "profesor_nombre":profesor_nombre})
 
 
 
@@ -307,10 +297,10 @@ def editarPerfil(request):
      
       #Si es metodo POST hago lo mismo que el agregar
       if request.method == 'POST':
-            miFormulario = UserEditForm(request.POST) 
-            if miFormulario.is_valid:   #Si pasó la validación de Django
+            FormType = UserEditForm(request.POST) 
+            if FormType.is_valid:   #Si pasó la validación de Django
 
-                  informacion = miFormulario.cleaned_data
+                  informacion = FormType.cleaned_data
             
                   #Datos que se modificarán
                   usuario.email = informacion['email']
@@ -322,10 +312,10 @@ def editarPerfil(request):
       #En caso que no sea post
       else: 
             #Creo el formulario con los datos que voy a modificar
-            miFormulario= UserEditForm(initial={ 'email':usuario.email}) 
+            FormType= UserEditForm(initial={ 'email':usuario.email}) 
 
       #Voy al html que me permite editar
-      return render(request, "AppCoder/editarPerfil.html", {"miFormulario":miFormulario, "usuario":usuario})
+      return render(request, "AppCoder/editarPerfil.html", {"FormType":FormType, "usuario":usuario})
 
 
 
@@ -333,14 +323,14 @@ def editarPerfil(request):
 def agregarAvatar(request):
       if request.method == 'POST':
 
-            miFormulario = AvatarFormulario(request.POST, request.FILES) #aquí mellega toda la información del html
+            FormType = AvatarFormulario(request.POST, request.FILES) #aquí mellega toda la información del html
 
-            if miFormulario.is_valid:   #Si pasó la validación de Django
+            if FormType.is_valid:   #Si pasó la validación de Django
 
 
                   u = User.objects.get(username=request.user)
                 
-                  avatar = Avatar (user=u, imagen=miFormulario.cleaned_data['imagen']) 
+                  avatar = Avatar (user=u, imagen=FormType.cleaned_data['imagen']) 
       
                   avatar.save()
 
@@ -348,9 +338,9 @@ def agregarAvatar(request):
 
       else: 
 
-            miFormulario= AvatarFormulario() #Formulario vacio para construir el html
+            FormType= AvatarFormulario() #Formulario vacio para construir el html
 
-      return render(request, "AppCoder/agregarAvatar.html", {"miFormulario":miFormulario})
+      return render(request, "AppCoder/agregarAvatar.html", {"FormType":FormType})
 
 
 def urlImagen():
