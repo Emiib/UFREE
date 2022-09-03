@@ -18,7 +18,7 @@ class DateProjectForm(forms.Form):
     second_deliver = forms.DateTimeField()
     deliver = forms.BooleanField()
 
-class User(UserCreationForm):
+class UserRegisterForm(UserCreationForm):
 
     username = forms.CharField()
     email = forms.EmailField()
@@ -54,7 +54,7 @@ class UserEditForm(UserCreationForm):
         help_texts = {k:"" for k in fields}
 
 
-class AvatarFormulario(forms.Form):
+class AvatarForm(forms.Form):
 
     #Especificar los campos
     

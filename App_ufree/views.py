@@ -1,8 +1,8 @@
 from django.shortcuts import redirect, render, HttpResponse
 from typing import List
 from django.http import HttpResponse
-from App_ufree.models import Curso, Profesor, Avatar
-from App_ufree.forms import CursoFormulario, ProfesorFormulario, TypeForm, UserRegisterForm,UserEditForm,AvatarFormulario
+from App_ufree.models import Type, Client, DateProject, Avatar
+from App_ufree.forms import TypeForm, ClienteForm, DateProjectForm, UserRegisterForm, UserEditForm, AvatarForm
 
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
@@ -26,207 +26,155 @@ from django.views.generic.base import TemplateView
 @login_required
 
 def inicio(request):
-
       avatares = Avatar.objects.filter(user=request.user.id)
-      
       return render(request, "App_ufree/inicio.html", {"url":avatares[0].imagen.url})
 
 
-
 def Type(request):
-
-      tipo =  tipo(nombre="App Inmobiliaria", id = "3000")
-      tipo.save()
-      Datatxt = f"Type: {tipo.nombre} ID: {tipo.id}"
-
+      id =  id(nombre="App Inmobiliaria", id = "3000")
+      id.save()
+      Datatxt = f"Type: {id.nombre} ID: {id.id}"
       return HttpResponse(Datatxt)
 
 
 def Client(request):
-
       return render(request, "App_ufree/Client.html")
 
 
 def DateProject(request):
-
       return render(request, "App_ufree/dateproject.html")
 
 
 def Type(request):
-
       if request.method == 'POST':
-
-            FormType = TypeForm(request.POST) #aquí mellega toda la información del html
-
+            FormType = TypeForm(request.POST)
             print(FormType)
-
-            if FormType.is_valid:   #Si pasó la validación de Django
-
+            if FormType.is_valid:   
                   info = FormType.cleaned_data
-
-                  tipo = tipo (nombre=info['Tipo'], id = info['ID']) 
-
-                  tipo.save()
-
-                  return render(request, "App_ufree/inicio.html") #Vuelvo al inicio o a donde quieran
+                  id = id (nombre=info['id'], id = info['ID']) 
+                  id.save()
+                  return render(request,"App_ufree/inicio.html")
 
       else:
-            FormType = TypeForm() #Formulario vacio para construir el html
+            FormType = TypeForm()
 
       return render(request, "App_ufree/type.html", {"FormType":FormType})
 
 
-
-
-def profesores(request):
-
+def Client(request):
       if request.method == 'POST':
-
-            FormType = ProfesorFormulario(request.POST) #aquí mellega toda la información del html
-
+            FormType = ClienteForm(request.POST)
             print(FormType)
-
-            if FormType.is_valid:   #Si pasó la validación de Django
-
-                  informacion = FormType.cleaned_data
-                  """
-                  #CASO DE PRUEBA
-                  KEY_LEN = 20
-                  keylistNombre = [random.choice((string.ascii_letters + string.digits)) for i in range(KEY_LEN)]
-                  nombrePrueba = "".join(keylistNombre)
-
-                  print(f"---->Pueba con: {nombrePrueba} ")
-                  """
-                  profesor = Profesor (nombre=informacion['nombre'], apellido=informacion['apellido'],
-                   email=informacion['email'], profesion=informacion['profesion']) 
-
-                  profesor.save()
-
-                  return render(request, "AppCoder/inicio.html") #Vuelvo al inicio o a donde quieran
+            if FormType.is_valid:  
+                  info = FormType.cleaned_data
+                  cliente = cliente (nombre = info['nombre'], apellido=info['apellido'],
+                  email=info['email'], dni = info['dni']) 
+                  cliente.save()
+                  return render(request,"App_ufree/inicio.html")
 
       else: 
 
-            FormType= ProfesorFormulario() #Formulario vacio para construir el html
+            FormType= ClienteForm()
 
-      return render(request, "AppCoder/profesores.html", {"FormType":FormType})
-
-
+      return render(request, "App_ufree/Client.html", {"FormType":FormType})
 
 
 
+def search(request):
 
-def buscar(request):
+      if  request.GET["id"]:
 
-      if  request.GET["camada"]:
+	      #respuesta = f"Estoy buscando la id nro: {request.GET['id'] }" 
+            id = request.GET['id'] 
+            tipo = type.objects.filter(id__icontains=id)
+            return render(request,"App_ufree/inicio.html", {"tipo":tipo, "id":id})
 
-	      #respuesta = f"Estoy buscando la camada nro: {request.GET['camada'] }" 
-            camada = request.GET['camada'] 
-            cursos = Curso.objects.filter(camada__icontains=camada)
+      else:
+            answer = "¿Buscas algun dato?"
 
-            return render(request, "AppCoder/inicio.html", {"cursos":cursos, "camada":camada})
-
-      else: 
-
-	      respuesta = "No enviaste datos"
-
-      #No olvidar from django.http import HttpResponse
-      #return HttpResponse(respuesta)
-      return render(request, "AppCoder/inicio.html", {"respuesta":respuesta})
+      return render(request,"App_ufree/inicio.html", {"respuesta":answer})
 
 
 
-def leerProfesores(request):
+def ClientSearch(request):
+      clientes = Client.objects.all() 
+      contexto = {"Clientes":clientes} 
 
-      profesores = Profesor.objects.all() #trae todos los profesores
-
-      contexto= {"profesores":profesores} 
-
-      return render(request, "AppCoder/leerProfesores.html",contexto)
+      return render(request, "App_ufree/ClientSearch.html",contexto)
 
 
 
-def eliminarProfesor(request, profesor_nombre):
+def DeleteClient(request, nombre_cliente):
 
-      profesor = Profesor.objects.get(nombre=profesor_nombre)
-      profesor.delete()
-      
+      clientes = Client.objects.get(nombre = nombre_cliente)
+      clientes.delete()
       #vuelvo al menú
-      profesores = Profesor.objects.all() #trae todos los profesores
-
-      contexto= {"profesores":profesores} 
-
-      return render(request, "AppCoder/leerProfesores.html",contexto)
+      clientes = Client.objects.all() #trae todos los profesores
+      contexto = {"clientes":clientes} 
+      return render(request, "App_ufree/DeleteClient.html",contexto)
 
 
 
-def editarProfesor(request, profesor_nombre):
+def ClientEdit(request, nombre_cliente):
 
-      #Recibe el nombre del profesor que vamos a modificar
-      profesor = Profesor.objects.get(nombre=profesor_nombre)
+      #Recibe el nombre del cliente que vamos a modificar
+      clientes = Client.objects.get(nombre = nombre_cliente)
 
       #Si es metodo POST hago lo mismo que el agregar
       if request.method == 'POST':
-
-            FormType = ProfesorFormulario(request.POST) #aquí mellega toda la información del html
-
+            FormType = ClienteForm(request.POST)
             print(FormType)
+            if FormType.is_valid:
 
-            if FormType.is_valid:   #Si pasó la validación de Django
+                  info = FormType.cleaned_data
 
-                  informacion = FormType.cleaned_data
+                  clientes.nombre = info['nombre']
+                  clientes.apellido = info['apellido']
+                  clientes.email = info['email']
+                  clientes.dni = info['dni']
+                  clientes.save()
 
-                  profesor.nombre = informacion['nombre']
-                  profesor.apellido = informacion['apellido']
-                  profesor.email = informacion['email']
-                  profesor.profesion = informacion['profesion']
-
-                  profesor.save()
-
-                  return render(request, "AppCoder/inicio.html") #Vuelvo al inicio o a donde quieran
+                  return render(request, "App_ufree/inicio.html")
       #En caso que no sea post
       else: 
             #Creo el formulario con los datos que voy a modificar
-            FormType= ProfesorFormulario(initial={'nombre': profesor.nombre, 'apellido':profesor.apellido , 
-            'email':profesor.email, 'profesion':profesor.profesion}) 
+            FormType= ClienteForm(initial={'nombre': clientes.nombre, 'apellido':clientes.apellido , 
+            'email':clientes.email, 'dni':clientes.dni}) 
 
       #Voy al html que me permite editar
-      return render(request, "AppCoder/editarProfesor.html", {"FormType":FormType, "profesor_nombre":profesor_nombre})
+      return render(request, "App_ufree/editarcliente.html", {"FormType":FormType, "nombre_cliente":nombre_cliente})
 
 
 
 
-class CursoList(ListView):
+class TyleList(ListView):
 
-      model = Curso 
-      template_name = "AppCoder/cursos_list.html"
+      model = Type 
+      template_name = "App_ufree/Types_list.html"
 
+class TypeDetalle(DetailView):
 
+      model = Type
+      template_name = "App_ufree/Type_detalle.html"
 
-class CursoDetalle(DetailView):
+class TypeCreacion(CreateView):
 
-      model = Curso
-      template_name = "AppCoder/curso_detalle.html"
-
-
-
-class CursoCreacion(CreateView):
-
-      model = Curso
-      success_url = "/AppCoder/curso/list"
-      fields = ['nombre', 'camada']
+      model = Type
+      success_url = "/App_ufree/Type/list"
+      fields = ['nombre', 'id']
 
 
-class CursoUpdate(UpdateView):
+class TypeUpdate(UpdateView):
 
-      model = Curso
-      success_url = "/AppCoder/curso/list"
-      fields  = ['nombre', 'camada']
+      model = Type
+      success_url = "/App_ufree/Type/list"
+      fields  = ['nombre', 'id']
 
 
-class CursoDelete(DeleteView):
+class TypeDelete(DeleteView):
 
-      model = Curso
-      success_url = "/AppCoder/curso/list"
+      model = Type
+      success_url = "/App_ufree/Type/list"
 
 
 
@@ -245,26 +193,26 @@ def login_request(request):
 
             if form.is_valid():
                   usuario = form.cleaned_data.get('username')
-                  contra = form.cleaned_data.get('password')
+                  password = form.cleaned_data.get('password')
 
-                  user = authenticate(username=usuario, password=contra)
+                  user = authenticate(username = usuario, password = password)
 
             
                   if user is not None:
                         login(request, user)
                        
-                        return render(request,"AppCoder/inicio.html",  {"mensaje":f"Bienvenido {usuario}"} )
+                        return render(request,"App_ufree/inicio.html",  {"mensaje":f"Que bueno verte {usuario}"} )
                   else:
                         
-                        return render(request,"AppCoder/inicio.html", {"mensaje":"Error, datos incorrectos"} )
+                        return render(request,"App_ufree/inicio.html", {"mensaje":"Intente nuevamente, por favor"} )
 
             else:
                         
-                        return render(request,"AppCoder/inicio.html" ,  {"mensaje":"Error, formulario erroneo"})
+                        return render(request,"App_ufree/inicio.html" ,  {"mensaje":"Error en el formulario"})
 
       form = AuthenticationForm()
 
-      return render(request,"AppCoder/login.html", {'form':form} )
+      return render(request,"App_ufree/login.html", {'form':form} )
 
 
 
@@ -278,14 +226,14 @@ def register(request):
 
                   username = form.cleaned_data['username']
                   form.save()
-                  return render(request,"AppCoder/inicio.html" ,  {"mensaje":"Usuario Creado :)"})
+                  return render(request,"App_ufree/Clientl" ,  {"mensaje":"Usuario Creado :)"})
 
 
       else:
             #form = UserCreationForm()       
             form = UserRegisterForm()     
 
-      return render(request,"AppCoder/registro.html" ,  {"form":form})
+      return render(request,"App_ufree/Clienttml" ,  {"form":form})
 
 
 
@@ -300,49 +248,42 @@ def editarPerfil(request):
             FormType = UserEditForm(request.POST) 
             if FormType.is_valid:   #Si pasó la validación de Django
 
-                  informacion = FormType.cleaned_data
+                  info = FormType.cleaned_data
             
                   #Datos que se modificarán
-                  usuario.email = informacion['email']
-                  usuario.password1 = informacion['password1']
-                  usuario.password2 = informacion['password1']
+                  usuario.email = info['email']
+                  usuario.password1 = info['password1']
+                  usuario.password2 = info['password1']
                   usuario.save()
 
-                  return render(request, "AppCoder/inicio.html") #Vuelvo al inicio o a donde quieran
+                  return render(request, "App_ufree/Clientl") #Vuelvo al inicio o a donde quieran
       #En caso que no sea post
       else: 
             #Creo el formulario con los datos que voy a modificar
             FormType= UserEditForm(initial={ 'email':usuario.email}) 
 
       #Voy al html que me permite editar
-      return render(request, "AppCoder/editarPerfil.html", {"FormType":FormType, "usuario":usuario})
+      return render(request, "App_ufree/Clientil.html", {"FormType":FormType, "usuario":usuario})
 
 
 
 @login_required
-def agregarAvatar(request):
+def addavatar(request):
       if request.method == 'POST':
 
-            FormType = AvatarFormulario(request.POST, request.FILES) #aquí mellega toda la información del html
+            FormType = AvatarForm(request.POST, request.FILES) #aquí mellega toda la información del html
 
             if FormType.is_valid:   #Si pasó la validación de Django
-
-
                   u = User.objects.get(username=request.user)
-                
                   avatar = Avatar (user=u, imagen=FormType.cleaned_data['imagen']) 
-      
                   avatar.save()
-
-                  return render(request, "AppCoder/inicio.html") #Vuelvo al inicio o a donde quieran
+                  return render(request, "App_ufree/inicio.html") #Vuelvo al inicio o a donde quieran
 
       else: 
 
-            FormType= AvatarFormulario() #Formulario vacio para construir el html
+            FormType= AvatarForm() #Formulario vacio para construir el html
 
-      return render(request, "AppCoder/agregarAvatar.html", {"FormType":FormType})
-
+      return render(request, "App_ufree/addavatar.html", {"FormType":FormType})
 
 def urlImagen():
-
       return "/media/avatares/logo.png"
