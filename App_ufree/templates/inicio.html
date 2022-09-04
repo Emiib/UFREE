@@ -1,4 +1,4 @@
-{% extends "App_ufree/father.html" %}
+{% extends "App_ufree/Padre.html" %}
 
 {% load static %}
 
@@ -9,43 +9,39 @@
             <h3>Que bueno verte {{user.username}}</h3>
         </div>
 
-    <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
     <h1>{{mensaje}}</h1>
   
 
-    <h3>Podes buscar una camada:</h3>
+    <h3>Search a job by the ID:</h3>
 
-    <form action="/App_ufree/buscar/" method="GET">
+    <form action="/App_ufree/search/" method="GET">
 
-        <input type="number" name="camada" id="camada">
+        <input type="number" name="id" id="id">
 
-        <input type="submit" value="Buscar">
-
-
-
+        <input type="submit" value="Search">
 
     </form>
 
     
 
-    {% if cursos %}
+    {% if Jobs %}
 
-    <p>Estamos buscando el: {{camada}}</p>
+    <p>Looking for: {{id}}</p>
 
     <ul>
-	{% for curso in cursos %}
-		<li> {{curso.nombre}} </li>
-		<li> {{curso.camada}} </li>
+	{% for job in Jobs %}
+		<li> {{job.tipo}} </li>
+		<li> {{job.id}} </li>
 	{% endfor %}
 
     </ul>
 
     {% else %}
-    <p>No hay datos con esa descripción.</p>
+    <p>There is no data to show, sorry!</p>
 
     {% endif %}
 
-    <p style="color: red;">{{respuesta}}</p>
+    <p style="color: green;">{{respuesta}}</p>
  
    
 
