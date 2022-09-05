@@ -5,7 +5,6 @@ from App_ufree.forms import JobsForm, ClienteForm, DateProjectForm
 from django.views.generic.base import TemplateView
 
 
-
 def inicio(request):
     return render (request, "App_ufree/inicio.html")
 
@@ -76,7 +75,7 @@ def DateProjects(request):
 
             FormDatePr= DateProjectForm()
 
-      return render(request, "App_ufree/dateproject.html", {"FormJobs":FormJobs})
+      return render(request, "App_ufree/dateproject.html", {"FormDatePr":FormDatePr})
 
 
 def search(request):
@@ -91,7 +90,6 @@ def search(request):
             answer = "¿Buscas algun dato?"
 
       return render(request,"App_ufree/search.html", {"respuesta":answer})
-
 
 
 def ClientSearch(request):
