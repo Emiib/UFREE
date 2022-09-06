@@ -2,47 +2,7 @@
 
 {% load static %}
 
-{% block contenidoQueCambia %}
+{% block %}
 
-        <div class="text-center">
-            <img height="40px" src="{{url}}" >
-            <h3>Que bueno verte</h3>
-        </div>
-
-    <h1>{{mensaje}}</h1>
-  
-
-    <h3>Search a job by the ID:</h3>
-
-    <form action="/App_ufree/search/" method="GET">
-
-        <input type="number" name="id" id="id">
-
-        <input type="submit" value="Search">
-
-    </form>
-
-    
-
-    {% if Jobs %}
-
-    <p>Looking for: {{id}}</p>
-
-    <ul>
-	{% for job in Jobs %}
-		<li> {{job.tipo}} </li>
-		<li> {{job.id}} </li>
-	{% endfor %}
-
-    </ul>
-
-    {% else %}
-    <p>There is no data to show, sorry!</p>
-
-    {% endif %}
-
-    <p style="color: green;">{{respuesta}}</p>
- 
-   
 
 {% endblock %}

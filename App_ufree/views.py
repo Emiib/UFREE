@@ -1,12 +1,7 @@
 from django.shortcuts import render, HttpResponse
 from django.http import HttpResponse
-from App_ufree.models import Jobs, Client, DateProject
-from App_ufree.forms import JobsForm, ClienteForm, DateProjectForm
-from django.views.generic.base import TemplateView
-
-
-def inicio(request):
-    return render (request, "App_ufree/inicio.html")
+from .models import Jobs, Client, DateProject
+from .forms import JobsForm, ClienteForm, DateProjectForm
 
 
 def Job(request):
@@ -18,48 +13,53 @@ def Job(request):
     return HttpResponse(texto)
 
 
+def inicio(request):
+    return render (request,"App_ufree/inicio.html")
+
+def Jobs(request):
+    return render (request, "App_ufree/Jobs.html")
+
+def Client(request):
+      return render(request, "App_ufree/Client.html")    
+
+def DateProject(request):
+      return render(request, "App_ufree/dateproject.html")
+
 def Jobs(request):
       if request.method == 'POST':
-            FormJobs = JobsForm(request.POST)
-            print(FormJobs)
-            if FormJobs.is_valid:   
-                  info = FormJobs.cleaned_data
+            formulario = JobsForm(request.POST)
+            print(formulario)
+            if formulario.is_valid:   
+                  info = formulario.cleaned_data
                   tipo = info["tipo"]
                   id = info["id"]
                   job = Job(tipo=tipo, id=id)
                   job.save()
                   return render(request,"App_ufree/inicio.html")
       else:
-            FormJobs = JobsForm()
+            formulario = JobsForm()
 
-      return render(request, "App_ufree/Jobs.html", {"FormJobs":FormJobs})
+      return render(request, "App_ufree/Jobs.html", {"formulario":formulario})
 
-
-def Jobs(request):
-    return render (request, "App_ufree/Jobs.html")
-
-def Client(request):
-      return render(request, "App_ufree/Client.html")
 
 def Clients(request):
       if request.method == 'POST':
-            FormClient = ClienteForm(request.POST)
-            print(FormClient)
-            if FormClient.is_valid:  
-                  info = FormClient.cleaned_data
+            formulario = ClienteForm(request.POST)
+            print(formulario)
+            if formulario.is_valid:  
+                  info = formulario.cleaned_data
                   client = Client(nombre = info['nombre'], apellido=info['apellido'],email = info['email'], dni = info['dni']) 
                   client.save()
                   return render(request,"App_ufree/inicio.html")
 
       else: 
 
-            FormJobs= ClienteForm()
+            formulario= ClienteForm()
 
-      return render(request, "App_ufree/Client.html", {"FormJobs":FormJobs})
+      return render(request, "App_ufree/Client.html", {"formulario":formulario})
 
 
-def DateProject(request):
-      return render(request, "App_ufree/dateproject.html")
+
 
 def DateProjects(request):
       if request.method == 'POST':
