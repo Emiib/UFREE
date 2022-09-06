@@ -2,7 +2,8 @@ from django.shortcuts import render, HttpResponse
 from django.http import HttpResponse
 from .models import Jobs, Client, DateProject
 from .forms import JobsForm, ClienteForm, DateProjectForm
-from django.views.generic.base import TemplateView
+from django.views import *
+from django.template import *
 
 def Job(request):
     tipo = request.POST.get("tipo")
@@ -14,16 +15,16 @@ def Job(request):
 
 
 def inicio(request):
-    return render (request,"App_ufree/inicio.html")
+    return render (request,"inicio.html")
 
 def Jobs(request):
-    return render (request, "App_ufree/Jobs.html")
+    return render (request, "Jobs.html")
 
 def Client(request):
-      return render(request, "App_ufree/Client.html")    
+      return render(request, "Client.html")    
 
 def DateProject(request):
-      return render(request, "App_ufree/dateproject.html")
+      return render(request, "dateproject.html")
 
 def Jobs(request):
       if request.method == 'POST':
@@ -91,18 +92,3 @@ def search(request):
 
       return render(request,"App_ufree/search.html", {"respuesta":answer})
 
-
-def ClientSearch(request):
-      clientes = Client.objects.all() 
-      contexto = {"Clientes":clientes} 
-
-      return render(request, "App_ufree/ClientSearch.html",contexto)
-
-
-def DeleteClient(request, nombre_cliente):
-
-      clientes = Client.objects.get(nombre = nombre_cliente)
-      clientes.delete()
-      clientes = Client.objects.all()
-      contexto = {"clientes":clientes} 
-      return render(request, "App_ufree/DeleteClient.html",contexto)
