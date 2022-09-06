@@ -1,16 +1,15 @@
-from django.urls import path
-from App_ufree.views import *
+from django.urls import path, include
+from App_ufree import views
 
 urlpatterns = [
-    path('http://127.0.0.1:8000/', inicio, name="Inicio"),
-    path("Job/",Job),
-
-    path('Jobs/', Jobs, name="MyProjects"),
-    path('Client/', Client, name="Clientes"),
-    path('DateProject/', DateProject, name = "DateProject"),
-    path('JobsForm/', JobsForm, name = "JobsForm"),
-    path('ClientForm/', ClienteForm, name = "ClientForm"),
-    path('search/', search, name = "search"),
-    path('ClientSearch/', ClientSearch, name="SearchClient"),
-    path('DeleteClient/<nombre_cliente>/', DeleteClient, name="EliminarCliente"),
+    path('', views.inicio, name='Inicio'),
+    path("Job",views.Job),
+    path('Jobs', views.Jobs, name='MyProjects'),
+    path('Client', views.Client, name='Clientes'),
+    path('DateProject', views.DateProject, name = "DateProject"),
+    path('JobsForm', views.JobsForm, name = "JobsForm"),
+    path('ClientForm', views.ClienteForm, name = "ClientForm"),
+    path('search', views.search, name = "search"),
+    path('ClientSearch', views.ClientSearch, name="SearchClient"),
+    path('DeleteClient/<nombre_cliente>/', views.DeleteClient, name="EliminarCliente"),
     ]

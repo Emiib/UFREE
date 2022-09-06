@@ -1,4 +1,3 @@
-
 from django import forms
 
 class JobsForm(forms.Form):
@@ -14,4 +13,4 @@ class ClienteForm(forms.Form):
 class DateProjectForm(forms.Form):
     first_deliver = forms.DateTimeField()
     second_deliver = forms.DateTimeField()
-    deliver = forms.BooleanField()
+    delivered = forms.BooleanField()
