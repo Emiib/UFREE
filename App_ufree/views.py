@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Jobs, Client, DateProject
 from .forms import JobsForm, ClienteForm, DateProjectForm
-from django.views import *
 
 
 def inicio(request,):
@@ -59,7 +58,7 @@ def Clients_view(request):
                   return render(request,"inicio.html") 
 
       else: 
-            formulario= ClienteForm()
+            formulario = ClienteForm()
       
       return render(request, "Client.html", {"formulario":formulario})
 

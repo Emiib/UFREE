@@ -19,15 +19,12 @@
 
     {% endif %}
 
-    <form action="{% url 'ClientForm' %}" method="POST"> {% csrf_token %}
+        <form action="{% url 'ClienteForm' %}" method="POST"> {% csrf_token %}
         
         <table>
-
             {{ formulario.as_table }}
         </table>
-
         <input type="submit", value="Enviar">
-
     </form>
 
-{% endblock %}
+{% endblock %} 
