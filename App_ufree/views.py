@@ -99,7 +99,7 @@ def search(request):
 
             num = request.GET['num'] 
             Job = Jobs.objects.filter(num=num)
-            return render(request,"search.html", {'Job':Job})
+            return render(request,"search.html", {'Job':Job, 'num':num})
 
       else:
             mensaje = "please, enter a numero"
