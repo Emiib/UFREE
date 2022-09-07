@@ -1,4 +1,3 @@
-from email.message import EmailMessage
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Jobs, Client, DateProject
@@ -100,7 +99,7 @@ def search(request):
       if  request.GET["id"]:
 
             id = request.GET['id'] 
-            jobs = Jobs.objects.filter  (id=id)
+            jobs = Jobs.objects.filter(id=id)
             return render(request,"searchresults.html", {'jobs':jobs})
 
       else:
