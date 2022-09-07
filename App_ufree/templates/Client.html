@@ -11,7 +11,7 @@
 
 {% block content_change %}
 
-    <h1>Add a new client</h1>
+<h1>Add a new client</h1>
     
     {% if formulario.errors %}
 
@@ -19,12 +19,11 @@
 
     {% endif %}
 
-    <form action="{% url 'ClientForm' %}" method="POST">{% csrf_token %}
+    <form action="{% url 'ClientForm' %}" method="POST"> {% csrf_token %}
         
         <table>
 
             {{ formulario.as_table }}
-
         </table>
 
         <input type="submit", value="Enviar">

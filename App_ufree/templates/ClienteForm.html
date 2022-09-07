@@ -8,15 +8,13 @@
 </head>
 <body>
 
-
     <form method="post"> {% csrf_token %}
 
-        {{ form.as_table }}
+        {{ formulario.as_table }}
 
-        <input type="submit" value="Enviar" />
+        <input type="submit" value="Enviar"/>
+
     </form>
-
-
     
 </body>
 </html>

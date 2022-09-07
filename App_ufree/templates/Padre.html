@@ -36,6 +36,7 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'MyProjects' %}">Jobs</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'Clientes' %}">Clients</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'DateProject' %}">Date Project</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'search' %}">Search</a></li>
                     </ul>
                 </div>
             </div>
@@ -48,7 +49,7 @@
                         {% block titulo %}
                         <h1 class="mx-auto my-0 text-uppercase">UFREE</h1>
                         <h2 class="text-white-50 mx-auto mt-2 mb-5">Your studio - Your space</h2>
-                        <a class="btn btn-primary" href="#about">Get Started</a>
+                        <a class="btn btn-primary" href="{% url 'search' %}">Search a Project</a>
                         {% endblock %}
                     </div>
                 </div>
@@ -62,11 +63,12 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8">
-                        <h2 class="text-white mb-4">Built with Bootstrap 5</h2>
+                        <h2 class="text-white mb-4">Start today with UFREE</h2>
                         <p class="text-white-50">
-                            Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on
-                            <a href="https://startbootstrap.com/theme/grayscale/">the preview page.</a>
-                            The theme is open source, and you can use it for any purpose, personal or commercial.
+                            It is one of the most popular web portals to earn money online with occasional jobs. 
+                            This is due to its ease of use, the number of services and products that can be offered, 
+                            the large number of active users who contract freelance services, as well as the possibility of growing on the platform since it has a 
+                            scoring system for generate a good reputation among the professionals who participate in it.
                         </p>
                     </div>
                 </div>
@@ -82,7 +84,7 @@
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
                             <h4>Shoreline</h4>
-                            <p class="text-black-50 mb-0">Grayscale is open source and MIT licensed. This means you can use it for any project - even commercial projects! Download it, customize it, and publish your website!</p>
+                            <p class="text-black-50 mb-0">It is a specialized platform for the purchase and sale of digital products and services, that is, it is only possible to sell services or products that can be delivered online, nothing physical.</p>
                         </div>
                     </div>
                 </div>
