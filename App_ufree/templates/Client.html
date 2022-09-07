@@ -1,3 +1,34 @@
 {% extends 'Padre.html' %}
 
 {% load static %}
+
+{% block titulo %}
+
+<h1 class="mb-5">CLIENTS SECTION</h1>
+
+{% endblock %}
+
+
+{% block content_change %}
+
+    <h1>Add a new client</h1>
+    
+    {% if formulario.errors %}
+
+    <p style="color: red;"> Error. Try Again.</p>
+
+    {% endif %}
+
+    <form action="{% url 'ClientForm' %}" method="POST">{% csrf_token %}
+        
+        <table>
+
+            {{ formulario.as_table }}
+
+        </table>
+
+        <input type="submit", value="Enviar">
+
+    </form>
+
+{% endblock %}

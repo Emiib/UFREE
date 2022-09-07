@@ -1,15 +1,15 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Jobs, Client, DateProject
-from .forms import JobsForm, ClienteForm, DateProjectForm
+from App_ufree.forms import JobsForm, ClienteForm, DateProjectForm
 from django.views import *
 
 
 def Job(request):
     tipo = request.POST.get("tipo")
     id = request.POST.get("id")
-    job = Job(nombre=tipo, id=id)
-    job.save()
+    Job = Job(tipo=tipo, id=id)
+    Job.save()
     texto=f"Job Created"
     return HttpResponse(texto)
 
@@ -34,12 +34,11 @@ def Jobs(request):
                   info = formulario.cleaned_data
                   tipo = info["tipo"]
                   id = info["id"]
-                  job = Job(tipo=tipo, id=id)
-                  job.save()
+                  Job = Jobs(tipo=tipo, id=id)
+                  Job.save()
                   return render(request,"inicio.html")
       else:
             formulario = JobsForm()
-
       return render(request, "Jobs.html", {"formulario":formulario})
 
 
@@ -54,38 +53,34 @@ def Clients(request):
                   return render(request,"inicio.html") 
 
       else: 
-
             formulario= ClienteForm()
-
       return render(request, "Client.html", {"formulario":formulario})
-
-
 
 
 def DateProjects(request):
       if request.method == 'POST':
-            FormDatePr = DateProjectForm(request.POST)
-            print(FormDatePr)
-            if FormDatePr.is_valid:  
-                  info = FormDatePr.cleaned_data
-                  datepr = DateProject(nombre = info['nombre'], apellido=info['apellido'],email = info['email'], dni = info['dni']) 
+            formulario = DateProjectForm(request.POST)
+            print(formulario)
+            if formulario.is_valid:  
+                  info = formulario.cleaned_data
+                  datepr = DateProject(first_deliver = info['first_deliver'], second_deliver=info['second_deliver'],deliverd = info['delivered']) 
                   datepr.save()
                   return render(request,"inicio.html")
-
       else: 
+            formulario= DateProjectForm()
+      return render(request, "dateproject.html", {"formulario":formulario})
 
-            FormDatePr= DateProjectForm()
 
-      return render(request, "dateproject.html", {"FormDatePr":FormDatePr})
-
+def search_id(request):
+      return render(request, 'searchresults.html')
 
 def search(request):
 
       if  request.GET["id"]:
 
             id = request.GET['id'] 
-            tipo = Jobs.objects.filter(id__icontains=id)
-            return render(request,"inicio.html", {"tipo":tipo, "id":id})
+            Jobs = Jobs.objects.filter(id=id)
+            return render(request,"searchresults.html", {'Jobs':Jobs})
 
       else:
             answer = "¿Buscas algun dato?"

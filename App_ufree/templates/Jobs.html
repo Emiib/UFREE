@@ -4,18 +4,27 @@
 
 {% block titulo %}
 
-<h1 class="mb-5">YOUR JOBS</h1>
+<h1 class="mb-5">JOBS SECTION</h1>
 
 {% endblock %}
 
 
-{% block LOAD_A_NEW_JOB  %}
-<form action="{% url 'MyProjects' %}" method="POST"> {% csrf_token %}
+{% block content_change  %}
 
-    <table>
-        {{ formulario.as_table }}
-    </table>
-    <input type="submit" value="Enviar">
-</form>
+<h1>Add a new job</h1>
 
-{% endblock %}
+        {% if formulario.errors %}
+
+        <p style="color: red;"> Error. Try Again.</p>
+
+        {% endif %}
+
+            <form action="{% url 'JobsForm' %}" method="POST"> {% csrf_token %}
+
+            <table>
+                {{ formulario.as_table }}
+            </table>
+            <input type="submit" value="Enviar">
+    </form>
+
+{% endblock %}    

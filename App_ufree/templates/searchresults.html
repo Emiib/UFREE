@@ -1,0 +1,26 @@
+{% extends 'Padre.html' %}
+
+{% load static %}
+
+{% block titulo %}
+<h1 class="mb-5">THIS ARE YOUR SEARCH RESULTS</h1>
+{% endblock %}
+
+{% block content_change %}
+    <h1>BELOW IS YOUR RESULT</h1>
+    {% if Jobs %}
+
+        <ul>
+        {% for Job in Jobs %}
+            <li>{{Job.tipo}}</li>
+            <li>{{Job.id}}</li>
+            <br>
+    {% endfor %}
+        </ul>
+
+{% else %}
+<p>NOTHING TO SHOW, TRY AGAIN</p>
+
+{% endif %}
+
+{% endblock %}

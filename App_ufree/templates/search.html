@@ -1,3 +1,25 @@
 {% extends 'Padre.html' %}
 
 {% load static %}
+
+{% block titulo %}
+
+<h1 class="mb-5">SEARCH FOR A SPECIFIC JOB </h1>
+
+{% endblock %}
+
+{% block content_change %}
+
+<h1>ENTER THE ID-JOB</h1>
+
+<form action="{% url 'search' %}" method="GET"> {% csrf_token %}
+
+    <input type="number" name="id" id="id">
+
+    <input type="submit" value="buscar">
+
+
+</form>
+
+{{ mensaje }}
+{% endblock %}
