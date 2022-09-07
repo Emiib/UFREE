@@ -1,3 +1,21 @@
-{% extends 'App_ufree/Padre.html' %}
+{% extends 'Padre.html' %}
 
 {% load static %}
+
+{% block titulo %}
+
+<h1 class="mb-5">YOUR JOBS</h1>
+
+{% endblock %}
+
+
+{% block LOAD_A_NEW_JOB  %}
+<form action="{% url 'MyProjects' %}" method="POST"> {% csrf_token %}
+
+    <table>
+        {{ formulario.as_table }}
+    </table>
+    <input type="submit" value="Enviar">
+</form>
+
+{% endblock %}
