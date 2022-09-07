@@ -4,13 +4,14 @@ from .models import Jobs, Client, DateProject
 from .forms import JobsForm, ClienteForm, DateProjectForm
 
 
+
 def inicio(request,):
     return render (request, "inicio.html")
 
 def Job(request):
     tipo = request.POST.get("tipo")
-    id = request.POST.get("id")
-    Job = Job(tipo=tipo, id=id)
+    num = request.POST.get("num")
+    Job = Job(tipo=tipo, num=num)
     Job.save()
     texto="Job Created"
     return HttpResponse(texto)
@@ -20,11 +21,11 @@ def jobs_view(request):
       if request.method == 'POST':
             formulario = JobsForm(request.POST)
             print(formulario)
-            if formulario.is_valid:   
+            if formulario.is_valnum:   
                   info = formulario.cleaned_data
                   tipo = info["tipo"]
-                  id = info["id"]
-                  Job = Jobs(tipo=tipo, id=id)
+                  num = info["num"]
+                  Job = Jobs(tipo=tipo, num=num)
                   Job.save()
                   return render(request,"inicio.html")
       else:
@@ -34,10 +35,10 @@ def jobs_view(request):
 
 def clienty(request):
     nombre = request.POST.get("nombre")
-    apellido = request.POST.get("apellido")
+    apellnumo = request.POST.get("apellnumo")
     email = request.POST.get("email")
     dni = request.POST.get("dni")
-    clienty = clienty(nombre=nombre, apellido=apellido, email = email, dni=dni)
+    clienty = clienty(nombre=nombre, apellnumo=apellnumo, email = email, dni=dni)
     clienty.save()
     texto="Client created"
     return HttpResponse(texto)
@@ -47,13 +48,13 @@ def Clients_view(request):
       if request.method == 'POST':
             formulario = ClienteForm(request.POST)
             print(formulario)
-            if formulario.is_valid:  
+            if formulario.is_valnum:  
                   info = formulario.cleaned_data
                   nombre = info["nombre"]
-                  apellido = info["apellido"]
+                  apellnumo = info["apellnumo"]
                   email = info["email"]
                   dni = info["dni"]
-                  clienty = Client(nombre = nombre, apellido=apellido,email = email, dni = dni) 
+                  clienty = Client(nombre = nombre, apellnumo=apellnumo,email = email, dni = dni) 
                   clienty.save()
                   return render(request,"inicio.html") 
 
@@ -76,7 +77,7 @@ def DateProjects_view(request):
       if request.method == 'POST':
             formulario = DateProjectForm(request.POST)
             print(formulario)
-            if formulario.is_valid:  
+            if formulario.is_valnum:  
                   info = formulario.cleaned_data
                   first_deliver = info["first_deliver"]
                   second_deliver = info["second_deliver"]
@@ -90,20 +91,17 @@ def DateProjects_view(request):
       return render(request, "dateproject.html", {"formulario":formulario})
 
 
-def search_id(request):
+def search_num(request):
       return render(request, 'searchresults.html')
 
 def search(request):
+      if  request.GET['num']:
 
-      if  request.GET["id"]:
-
-            id = request.GET['id'] 
-            jobs = Jobs.objects.filter(id=id)
-            return render(request,"searchresults.html", {'jobs':jobs})
+            num = request.GET['num'] 
+            Job = Jobs.objects.filter(num=num)
+            return render(request,"search.html", {'Job':Job})
 
       else:
-            mensaje = "please, enter an ID"
-            
+            mensaje = "please, enter a numero"
+      
       return render(request, "searchresults.html", {'mensaje': mensaje})
-            
-

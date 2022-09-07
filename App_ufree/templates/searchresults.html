@@ -13,14 +13,15 @@
         <ul>
         {% for Job in Jobs %}
             <li>{{Job.tipo}}</li>
-            <li>{{Job.id}}</li>
+            <li>{{Job.num}}</li>
             <br>
-    {% endfor %}
+
+        {% endfor %}
         </ul>
 
-{% else %}
-<p>NOTHING TO SHOW, TRY AGAIN</p>
+    {% else %}
+        <p>NOTHING TO SHOW, TRY AGAIN</p>
 
-{% endif %}
+    {% endif %}
 
 {% endblock %}

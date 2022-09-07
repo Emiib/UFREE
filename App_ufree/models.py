@@ -3,7 +3,7 @@ from django.db import models
 class Jobs(models.Model):
 
     tipo = models.CharField(max_length=40)
-    id = models.IntegerField(primary_key=True)
+    num = models.IntegerField(primary_key=True)
 
     def __str__(self):
         return f"Tipo del Proyecto: {self.tipo} - {self.id}"

@@ -2,7 +2,7 @@ from django import forms
 
 class JobsForm(forms.Form):
     tipo = forms.CharField(max_length=100)
-    id = forms.IntegerField()
+    num = forms.IntegerField()
 
 class ClienteForm(forms.Form):   
     nombre = forms.CharField(max_length=30)

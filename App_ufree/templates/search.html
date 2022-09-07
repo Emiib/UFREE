@@ -12,14 +12,14 @@
 
 <h1>ENTER THE ID-JOB</h1>
 
-<form action="{% url 'search' %}" method="GET"> {% csrf_token %}
+    <form action="{% url 'search' %}" method="GET"> {% csrf_token %}
 
-    <input type="number" name="id" id="id">
+        <input type="number" name="num" id="num">
 
-    <input type="submit" value="buscar">
+        <input type="submit" value="buscar">
 
 
-</form>
+    </form>
 
 {{ mensaje }}
 {% endblock %}

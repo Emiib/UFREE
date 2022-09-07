@@ -11,5 +11,5 @@ urlpatterns = [
     path('ClienteForm/', Clients_view, name = "ClienteForm"),
     path('DateProjectForm/', DateProjects_view, name= 'DateProjectForm' ),
     path('search/', search, name = "search"),
-    path('searchresults/', search_id, name = 'searchid')
+    path('searchresults/', search_num, name = 'searchnum')
     ]
