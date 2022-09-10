@@ -19,12 +19,12 @@
 
     {% endif %}
 
-        <form action="{% url 'JobsForm' %}" method="POST"> {% csrf_token %}
+    <form action="{% url 'JobsForm' %}" method="POST"> {% csrf_token %}
 
         <table>
-            {{ formulario.as_table }}
+                 {{ formulario.as_table }}
         </table>
-        <input type="submit" value="Enviar">
+                <input type="submit" value="Enviar">
     </form>
-
+    {{texto}}
 {% endblock %}    

@@ -8,20 +8,14 @@
 
 {% block content_change %}
     <h1>BELOW IS YOUR RESULT</h1>
-    {% if Jobs %}
-
+    {% if Job %}
         <ul>
-        {% for Job in Jobs %}
-            <li>{{Job.tipo}}</li>
-            <li>{{Job.num}}</li>
-            <br>
-
-        {% endfor %}
+            {% for Job in Jobs %}
+                <li>{{Job.tipo}}</li>
+                <li>{{Job.num}}</li>
+            {% endfor %}
         </ul>
-
     {% else %}
         <p>NOTHING TO SHOW, TRY AGAIN</p>
-
     {% endif %}
-
 {% endblock %}

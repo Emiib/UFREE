@@ -10,16 +10,18 @@
 
 {% block content_change %}
 
-<h1>ENTER THE ID-JOB</h1>
+<h1>ENTER THE JOB NUMBER</h1>
 
     <form action="{% url 'search' %}" method="GET"> {% csrf_token %}
 
-        <input type="number" name="num" id="num">
+        <table>
+            {{ formulario.as_table }}
+       </table>
 
-        <input type="submit" value="buscar">
+            <input type="number" name="num" id="num">
 
+            <input type="submit" value="buscar">
 
-    </form>
+</form>
 
-{{ mensaje }}
 {% endblock %}
