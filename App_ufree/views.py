@@ -29,18 +29,12 @@ def jobs_view(request):
       else:
             formulario = JobsForm()
             
-      return render(request, "Jobs.html", {"formulario":formulario})
+      return render(request, "JobsForm.html", {"formulario":formulario})
       
 
 
-
-def clienty(request):
-      nombre = request.POST.get("nombre")
-      apellido = request.POST.get("apellido")
-      email = request.POST.get("email")
-      dni = request.POST.get("dni")
-      clienty = Client(nombre=nombre, apellido=apellido, email = email, dni=dni)
-      clienty.save()
+def clientss(request):
+    return render (request, "clientss.html")
 def Clients_view(request):
       if request.method == 'POST':
             formulario = ClienteForm(request.POST)
@@ -53,14 +47,43 @@ def Clients_view(request):
                   dni = info["dni"]
                   clienty = Client(nombre=nombre, apellido=apellido, email= email, dni = dni) 
                   clienty.save()
-                  texto="Client created"
-                  return HttpResponse(texto)
+                  clientss=Client.objects.all()
+                  return render(request, "readclient.html", {"clientss":clientss})
       else: 
             formulario = ClienteForm()
-      
-      return render(request, "Client.html", {"formulario":formulario})
+      return render(request, "ClienteForm.html", {"formulario":formulario})
 
+#profesores = clientss
+#profe = clienty
+#profesor = clients_s
 
+def readclient(request):
+    clientss=Client.objects.all()
+    print(list(clientss))
+    return render(request, "readclient.html", {"clientss":clientss})
+
+def delclient(request, id):
+    client_s=Client.objects.get(id=id)
+    client_s.delete()
+    clientss=Client.objects.all()
+    return render(request, "readclient.html", {"clientss":clientss})
+
+def editclient(request, id):
+    clients_s=Client.objects.get(id=id)
+    if request.method=="POST":
+        formulario=ClienteForm(request.POST)
+        if formulario.is_valid():
+            info=formulario.cleaned_data
+            clients_s.nombre=info["nombre"]
+            clients_s.apellido=info["apellido"]
+            clients_s.email=info["email"]
+            clients_s.dni=info["dni"]
+            clients_s.save()
+            clients_s=Client.objects.all()
+            return render(request, "readclient.html", {"clientss":clientss})
+    else:
+        formulario= ClienteForm(initial={"nombre":clients_s.nombre, "apellido":clients_s.apellido, "email":clients_s.email, "dni":clients_s.dni})
+        return render(request, "editclient.html", {"formulario":formulario, "clients_s":clients_s})
 
 
 def datepr(request):
@@ -97,3 +120,6 @@ def search(request):
         return render(request, "searchresults.html", {"Job":Job, "num":num})
       else:
         return render(request, "search.html", {"notification":"Please, enter a number"})
+
+
+

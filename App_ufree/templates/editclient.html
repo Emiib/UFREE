@@ -1,0 +1,22 @@
+{% extends "Padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+
+<h1 class="mb-5">You are editing this client: {{ clients_s }}</h1>
+
+{% endblock %}
+
+{% block content_change %}
+
+<form action="{% url 'editclient' clients_s.id %}" method="POST"> {% csrf_token %}
+
+    <table>
+        {{ formulario.as_table }}
+    </table>
+
+    <input type="submit" value="Save">
+    
+</form>
+{% endblock %}

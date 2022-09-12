@@ -5,7 +5,7 @@ urlpatterns = [
     path('',inicio, name="inicio"),
     
     path('Job/',Job),
-    path('clienty/', clienty),
+    path('clientss/', clientss),
     path('datepr/', datepr),
 
     path('Jobs/', jobs_view, name='jobsview'),
@@ -18,5 +18,9 @@ urlpatterns = [
 
     path('searchresults/', searchresults, name = "searchresults"),
     path('search/', search, name= "search"),
+
+    path("readclient/", readclient, name="ReadClient"),
+    path('delclient/<id>', delclient, name='DelClient'),
+    path('editclient/<id>', editclient, name='EditClient'),
     
     ]

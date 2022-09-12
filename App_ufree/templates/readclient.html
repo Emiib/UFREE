@@ -1,0 +1,34 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+
+    <h1 class="mb-5">MY CLIENTS</h1>
+
+{% endblock %}
+
+{% block content_change %}
+
+    <h1>LISTADO DE PROFES</h1>
+
+{% if clientss %}
+
+<ul>
+    {% for clienty in clientss %}
+        <h4>{{ clienty.nombre }}, {{ clienty.apellido }} - {{ clienty.dni }}</h4>
+        <a class="btn btn-danger" href="{% url 'delclient' clienty.id %}">Delete</a>
+        <a class="btn btn-success" href="{% url 'editclient' clienty.id %}">Edit</a>
+        <br>
+    {% endfor %}
+</ul>
+
+
+{% else %}
+<p>YOU DON'T HAVE THIS CLIENT YET</p>
+
+{% endif %}
+
+<a class="btn btn-success" href="{% url 'Clients_view' %}">Want to add a new client?</a>
+
+{% endblock %}
