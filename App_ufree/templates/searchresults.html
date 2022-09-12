@@ -7,14 +7,15 @@
 {% endblock %}
 
 {% block content_change %}
-    <h1>BELOW IS YOUR RESULT</h1>
+<h1>BELOW IS YOUR RESULT</h1>
+<p>Searching por this job: {{Job}}</p>
     {% if Job %}
-        <ul>
-            {% for Job in Jobs %}
-                <li>{{Job.tipo}}</li>
-                <li>{{Job.num}}</li>
-            {% endfor %}
-        </ul>
+    <ul>
+    {% for Job in Jobs %}
+        <li>{{Job.tipo}}</li>
+        <li>{{Job.num}}</li>
+    {% endfor %}
+    </ul>
     {% else %}
         <p>NOTHING TO SHOW, TRY AGAIN</p>
     {% endif %}

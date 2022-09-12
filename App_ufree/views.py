@@ -18,6 +18,7 @@ def Job(request):
 def jobs_view(request):
       if request.method == 'POST':
             formulario = JobsForm(request.POST)
+            print(formulario)
             if formulario.is_valid():  
                   info = formulario.cleaned_data
                   tipo = info["tipo"]
@@ -86,10 +87,13 @@ def DateProjects_view(request):
             return render(request, "dateproject.html", {"formulario":formulario})
 
 
+def searchresults(request):
+      return render(request, "searchresults.html")
+
 def search(request):
-    if request.GET.get("num"):
+      if request.GET.get("num"):
         num = request.GET.get("num")
-        Job = Jobs.objects.filter(num=num)
-        return render(request, "searchresults.html", {"Job":Job})
-    else:
+        Job = Jobs.objects.filter(num__icontains = num)
+        return render(request, "searchresults.html", {"Job":Job, "num":num})
+      else:
         return render(request, "search.html", {"notification":"Please, enter a number"})

@@ -16,6 +16,7 @@ urlpatterns = [
     path('ClienteForm/', Clients_view, name = "ClienteForm"),
     path('DateProjectForm/', DateProjects_view, name= 'DateProjectForm' ),
 
-    path('search/', search, name = "search"),
+    path('searchresults/', searchresults, name = "searchresults"),
+    path('search/', search, name= "search"),
     
     ]
