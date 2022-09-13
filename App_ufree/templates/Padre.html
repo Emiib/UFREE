@@ -38,9 +38,10 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" href="{% url 'jobsview' %}">Jobs</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'clientsview' %}">Clients</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'DateProjectsview' %}">Date Project</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Clients_view' %}">Clients</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'DateProjects_view' %}">Date Project</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'search' %}">Search</a></li>
+
                     </ul>
                 </div>
             </div>
@@ -53,8 +54,8 @@
                     <div class="text-center">
                         {% block titulo %}
                         <h1 class="mx-auto my-0 text-uppercase">UFREE</h1>
-                        <h2 class="text-white-50 mx-auto mt-2 mb-5">Your studio - Your space</h2>
-                        <a class="btn btn-primary" href="{% url 'search' %}">Search a Project</a>
+                        <h2 class="text-white-50 mx-auto mt-2 mb-5">Your studio - Your space - Your Freedom</h2>
+                        <a class="btn btn-primary" href="{% url 'search' %}">Register for free</a>
                         {% endblock %}
                     </div>
                 </div>

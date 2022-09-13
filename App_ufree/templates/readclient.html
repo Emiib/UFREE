@@ -1,4 +1,4 @@
-{% extends "AppCoder/padre.html" %}
+{% extends "Padre.html" %}
 
 {% load static %}
 
@@ -17,8 +17,8 @@
 <ul>
     {% for clienty in clientss %}
         <h4>{{ clienty.nombre }}, {{ clienty.apellido }} - {{ clienty.dni }}</h4>
-        <a class="btn btn-danger" href="{% url 'delclient' clienty.id %}">Delete</a>
-        <a class="btn btn-success" href="{% url 'editclient' clienty.id %}">Edit</a>
+            <a class="btn btn-danger" href="{% url 'delclient' clienty.id %}">Delete</a>
+            <a class="btn btn-success" href="{% url 'editclient' clienty.id %}">Edit</a>
         <br>
     {% endfor %}
 </ul>

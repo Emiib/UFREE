@@ -28,8 +28,7 @@ def jobs_view(request):
                   return render(request, "Jobs.html",{"formulario":formulario})
       else:
             formulario = JobsForm()
-            
-      return render(request, "JobsForm.html", {"formulario":formulario})
+            return render(request, "JobsForm.html", {"formulario":formulario})
       
 
 
@@ -51,7 +50,7 @@ def Clients_view(request):
                   return render(request, "readclient.html", {"clientss":clientss})
       else: 
             formulario = ClienteForm()
-      return render(request, "ClienteForm.html", {"formulario":formulario})
+      return render(request, "Client.html", {"formulario":formulario})
 
 #profesores = clientss
 #profe = clienty

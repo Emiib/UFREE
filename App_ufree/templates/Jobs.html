@@ -13,18 +13,21 @@
 
 <h1>Add a new job</h1>
 
-    {% if formulario.errors %}
+{% if formulario.errors %}
 
-    <p style="color: red;"> Error. Try Again.</p>
+<p style="color: red;"> Error. Try Again.</p>
 
-    {% endif %}
+{% endif %}
 
-    <form action="{% url 'JobsForm' %}" method="POST"> {% csrf_token %}
+<form action="{% url 'jobs_view' %}" method="POST"> {% csrf_token %}
 
-        <table>
-                 {{ formulario.as_table }}
-        </table>
-                <input type="submit" value="Enviar">
-    </form>
-    {{texto}}
+    <table>
+        {{ formulario.as_table }}
+    </table>
+    <input type="submit" value="Enviar">
+
+</form>
+
+<a class="btn btn-success" href="{% url 'jobs_view' %}">Want to add a new job?</a>
+
 {% endblock %}    
