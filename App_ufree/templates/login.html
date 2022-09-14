@@ -1,0 +1,27 @@
+{% extends "Padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+
+<h1 class="mb-5">LOGIN</h1>
+
+{% endblock %}
+
+{% block content_change %}
+
+<h1>LOGIN</h1>
+
+<form action="{% url 'login' %}" method="POST"> {% csrf_token %}
+
+    <table>
+        {{ formulario.as_table }}
+    </table>
+
+    <button type="submit">SUBMIT</button>
+
+</form>
+
+<h2>{{ mensaje }}</h2>
+
+{% endblock %}
