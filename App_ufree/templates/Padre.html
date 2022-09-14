@@ -9,8 +9,7 @@
         <meta name="author" content="" />
 
         <title>Ufree - Frelancer</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" 
-        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
         <link rel="icon" type="image/x-icon" href="{% static 'assets/img/favicon.ico' %}" />
         
         <!-- Font Awesome icons (free version)-->
@@ -25,7 +24,7 @@
     
     </head>
     <body id="page-top">
-        
+
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container px-4 px-lg-5">
@@ -37,7 +36,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="{% url 'jobsview' %}">Jobs</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'jobs_view' %}">Jobs</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'Clients_view' %}">Clients</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'DateProjects_view' %}">Date Project</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'search' %}">Search</a></li>
@@ -51,7 +50,6 @@
                 </div>
             </div>
         </nav>
-        
         <!-- Masthead-->
         <header class="masthead">
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
@@ -60,7 +58,12 @@
                         {% block titulo %}
                         <h1 class="mx-auto my-0 text-uppercase">UFREE</h1>
                         <h2 class="text-white-50 mx-auto mt-2 mb-5">Your studio - Your space - Your Freedom</h2>
+                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+                        {% if user.is_authenticated %}
+                        <a class="btn btn-primary" href="{% url 'search' %}">Check your jobs</a>
+                        {% else %}
                         <a class="btn btn-primary" href="{% url 'register' %}">Register for free</a>
+                        {% endif %}
                         {% endblock %}
                     </div>
                 </div>
@@ -70,7 +73,7 @@
 
         {% endblock %}
         <!-- About-->
-        <section class="about-section text-center" id="about">
+        <section class="about-section text-align" id="about">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8">
@@ -87,13 +90,13 @@
             </div>
         </section>
         <!-- Projects-->
-        <section class="projects-section bg-light" id="projects">
+        <section class="projects-section bg-light.bg-gradient" id="projects">
             <div class="container px-4 px-lg-5">
                 <!-- Featured Project Row-->
                 <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
                     <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="{% static 'assets/img/masthead.jpg' %}" alt="..." />
                     <div class="col-xl-4 col-lg-5">
-                        <div class="featured-text text-center text-lg-center">
+                        <div class="featured-text text-align text-lg-right">
                             <h4>Shoreline</h4>
                             <p class="text-black-50 mb-0">It is a specialized platform for the purchase and sale of digital products and services, that is, it is only possible to sell services or products that can be delivered online, nothing physical.</p>
                         </div>
@@ -101,13 +104,13 @@
                 </div>
                 <!-- Project One Row-->
                 <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="{% static 'assets/img/pexels-tranmautritam.jpg' %}" alt="..." /></div>
+                    <div class="col-lg-6"><img class="img-fluid" src="{% static 'assets/img/pexels-samson-katt.jpg' %}" alt="..." /></div>
                     <div class="col-lg-6">
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-left">
-                                    <h4 class="text-white">Misty</h4>
-                                    <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
+                                    <h4 class="text-white">Portfolio work</h4>
+                                    <p class="mb-0 text-white-50">This is the freelancer model par excellence where a freelancer has a long list of clients and does piecemeal projects for each of them. For example a designer might receive a lot of frequent but small orders from different companies. </p>
                                     <hr class="d-none d-lg-block mb-0 ms-0" />
                                 </div>
                             </div>
@@ -121,7 +124,7 @@
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <h4 class="text-white">Freelancer</h4>
+                                    <h4 class="text-white">Be a Freelancer</h4>
                                     <p class="mb-0 text-white-50">A freelancer is an individual who earns money on a per-job or per-task basis, usually for short-term work as an independent contractor. 
                                         A freelancer is not an employee of a firm and may therefore be at liberty to complete different jobs concurrently by various individuals or firms unless contractually 
                                         committed to working exclusively until a particular project is completed.</p>
@@ -135,7 +138,7 @@
         </section>
        
         <!-- Contact-->
-        <section class="contact-section bg-black">
+        <section class="contact-section bg-dark.bg-gradient">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-md-4 mb-3 mb-md-0">
@@ -178,10 +181,7 @@
         </section>
         
         <!-- Footer-->
-        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Hope you hace enjoy my project</div></footer>
-        
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <footer class="footer bg-dark.bg-gradient small text-center text-white-50"><div class="container px-4 px-lg-5">Hope you hace enjoy my project</div></footer>
         
         <!-- Core theme JS-->
         <script src="{% static 'js/scripts.js' %}"></script>
@@ -190,5 +190,10 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
     </body>
 </html>
+
+
+<!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" 
+integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous"/>-->

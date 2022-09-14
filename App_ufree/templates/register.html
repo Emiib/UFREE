@@ -4,14 +4,13 @@
 
 {% block titulo %}
 
-<h1 class="mb-5">Register in UFREE</h1>
+<h1 class="mx-auto my-0 text-uppercase">Register in UFREE</h1>
 
 {% endblock %}
 
-
 {% block content_change %}
 
-<h1>Complete the next form, please</h1>
+<h1>¡Register here!</h1>
 
 <form action="{% url 'register' %}" method="POST"> {% csrf_token %}
 

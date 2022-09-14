@@ -1,13 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from .models import Jobs, Client, DateProject
 from .forms import JobsForm, ClienteForm, DateProjectForm, UserRegisterForm
 
-from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, authenticate, logout
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 
 def inicio(request):
@@ -33,10 +34,10 @@ def jobs_view(request):
                   num = info["num"]
                   Job = Jobs(tipo=tipo,num=num)
                   Job.save()
-                  return render(request, "JobsForm.html",{"formulario":formulario})
+                  return render(request, "Jobs.html")
       else:
             formulario = JobsForm()
-            return render(request, "JobsForm.html", {"formulario":formulario})
+            return render(request, "Jobs.html", {"formulario":formulario})
       
 
 @login_required
@@ -136,10 +137,10 @@ def login_request(request):
         if formulario.is_valid():
             user=request.POST["username"]
             passw=request.POST["password"]
-            User=authenticate(username=user, password=passw)
-            if User is not None:
-                login(request, User)
-                return render(request, 'inicio.html', {'mensaje':f"Nice to see you again {User}"})
+            log_user=authenticate(username=user, password=passw)
+            if log_user is not None:
+                login(request, log_user)
+                return render(request, 'inicio.html', {'mensaje':f"Nice to see you again {user}"})
             else:
                 return render(request, "login.html", {"formulario":formulario, "mensaje":"Username or password incorrect"})
         else:
@@ -152,14 +153,18 @@ def register(request):
     if request.method=="POST":
         formulario=UserRegisterForm(request.POST)
         if formulario.is_valid():
-            username=formulario.cleaned_data.get('username')
+            new_user=formulario.cleaned_data.get('username')
             formulario.save()
-            return render(request, "inicio.html", {"mensaje":f"Welcome {username}, it's nice to meet you"})
+            return render(request, "inicio.html", {"mensaje":f"Welcome {new_user}, it's nice to meet you"})
         else:
-            return render(request, "register.html", {"formulario":formulario, "mensaje":"FORMULARIO INVALIDO"})
+            return render(request, "register.html", {"formulario":formulario, "mensaje":"¡Invalid data, please check!"})
 
     else:
         formulario=UserRegisterForm()
         return render(request, "register.html", {"formulario":formulario})
 
 
+#def logout_request(request):
+    logout(request)
+     
+    return redirect("inicio")

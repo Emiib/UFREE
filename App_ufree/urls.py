@@ -24,7 +24,7 @@ urlpatterns = [
     path('delclient/<id>', delclient, name='delclient'),
     path('editclient/<id>', editclient, name='editclient'),
 
-    path('login/', login, name = "login"),
+    path('login/', login_request, name = "login"),
     path('register/', register, name = "register"),
     path('logout/', LogoutView.as_view(template_name='logout.html'), name='logout'),
     ]
